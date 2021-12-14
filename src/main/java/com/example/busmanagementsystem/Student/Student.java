@@ -25,6 +25,7 @@ public class Student {
             generator = "student_sequence"
     )
     private long id;
+    private Integer sid;
     private String name;
     private  String address;
     private  String dept;
@@ -34,7 +35,8 @@ public class Student {
     public Student() {
     }
 
-    public Student(long l, String name, String address, String dept, String defaultRoute, Integer balance) {
+    public Student(long l,Integer sid, String name, String address, String dept, String defaultRoute, Integer balance) {
+        this.sid = sid;
         this.name = name;
         this.address = address;
         this.dept = dept;
@@ -44,8 +46,9 @@ public class Student {
 
     @Override
     public String toString() {
-        return "StudentController{" +
+        return "Student{" +
                 "id=" + id +
+                ", sid=" + sid +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", dept='" + dept + '\'' +

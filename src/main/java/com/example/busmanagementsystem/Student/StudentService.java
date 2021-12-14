@@ -21,10 +21,20 @@ public class StudentService {
     }
 
     public void addNewStudent(Student student) {
-        Optional<Student> optionalStudent =  studentRepository.findStudentByID(student.getId());
+        Optional<Student> optionalStudent =  studentRepository.findStudentBySID(student.getSid());
         if (optionalStudent.isPresent()) {
             throw new IllegalStateException("Account Already Exists. Please Try Signing In.");
+        } else {
+            studentRepository.save(student);
         }
-        studentRepository.save(student);
+    }
+
+    public void deleteStudentBySid(Integer studentId) {
+        Optional<Student> optionalStudent =  studentRepository.findStudentBySID(studentId);
+        if (optionalStudent.isPresent()) {
+            studentRepository.deleteById(optionalStudent.get().getId());
+        } else {
+            throw new IllegalStateException("Student with ID "+studentId+" does not exist!");
+        }
     }
 }

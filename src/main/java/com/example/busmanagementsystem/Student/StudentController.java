@@ -3,6 +3,7 @@ package com.example.busmanagementsystem.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -24,5 +25,10 @@ public class StudentController {
     @PostMapping
     public void registerNewStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
+    }
+
+    @DeleteMapping(path = "{studentSid}")
+    public void deleteStudent(@PathVariable("studentSid") Integer studentSid){
+        studentService.deleteStudentBySid(studentSid);
     }
 }
