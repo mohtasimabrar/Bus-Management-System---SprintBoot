@@ -13,5 +13,71 @@
 <body>
 <header th:insert="Conductor/navBar.html :: conNav"></header>
 
+<div class="container mt-2 pb-4 p-0">
+    <div class="text-left">
+        <h3 class="pt-4">Bus: [(${bus.defaultRoute})]</h3>
+    </div>
+
+    <div class="d-flex justify-content-center card-deck pt-3">
+        <div class="card">
+            <div class="card-header">
+                Bus Status
+            </div>
+            <div class="card-body">
+                <h1>[(${bus.status})]</h1>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Passenger Count
+            </div>
+            <div class="card-body">
+                <h1>[(${passengerCount})]</h1>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Available Seats
+            </div>
+            <div class="card-body">
+                <h1>[(${bus.availableSeat})]</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-left mt-5">
+        <h3 class="pt-4">Set Bus Status</h3>
+    </div>
+
+    <form method="POST" th:action="@{/conductor/updateBusStatus}" th:object="${bus}" >
+
+        <div class="form-group mb-4">
+            <select class="form-control selectpicker" th:field="*{status}" id="status">
+                <option value="">Set Bus Status</option>
+                <option
+                        value="Arrived"
+                        text="Arrived">Arrived
+                </option>
+                <option
+                        value="On Route"
+                        text="On Route">On Route
+                </option>
+                <option
+                        value="Unavailable"
+                        text="Unavailable">Unavailable
+                </option>
+            </select>
+        </div>
+
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-info col-4">Update Status</button>
+        </div>
+
+    </form>
+
+
+</div>
+
 </body>
 </html>

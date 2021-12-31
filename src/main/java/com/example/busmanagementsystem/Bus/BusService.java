@@ -2,6 +2,7 @@ package com.example.busmanagementsystem.Bus;
 
 import com.example.busmanagementsystem.Bus.Bus;
 import com.example.busmanagementsystem.Bus.BusRepository;
+import com.example.busmanagementsystem.Conductor.Conductor;
 import com.example.busmanagementsystem.Student.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,10 @@ public class BusService {
             return optionalBus.get();
         }
         return null;
+    }
+
+    public Bus findBusByConductorID(Conductor conductor) {
+        return busRepository.findBusByConductor(conductor);
     }
 
     public long busCount() {return busRepository.count();}

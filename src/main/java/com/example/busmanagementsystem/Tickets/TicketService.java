@@ -1,5 +1,6 @@
 package com.example.busmanagementsystem.Tickets;
 
+import com.example.busmanagementsystem.Bus.Bus;
 import com.example.busmanagementsystem.Student.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,9 @@ public class TicketService {
         }
     }
 
-
+    public Ticket updateTicket(Ticket ticket) {
+        return ticketRepository.save(ticket);
+    }
 
     public void addNewTicket(Ticket ticket) {
         Optional<Ticket> optionalTicket =  ticketRepository.findTicketByID(ticket.getId());
@@ -43,6 +46,11 @@ public class TicketService {
         } else {
             ticketRepository.save(ticket);
         }
+    }
+
+    public List<Ticket> findIncompleteTicketsByBus(Bus bus) {
+        List<Ticket> tickets = ticketRepository.findIncompleteTicketsByBus(bus);
+        return tickets;
     }
 
 

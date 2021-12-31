@@ -1,5 +1,11 @@
 package com.example.busmanagementsystem.Conductor;
 
+import com.example.busmanagementsystem.Bus.Bus;
+import com.example.busmanagementsystem.Bus.BusService;
+import com.example.busmanagementsystem.Student.Student;
+import com.example.busmanagementsystem.Student.StudentService;
+import com.example.busmanagementsystem.Tickets.Ticket;
+import com.example.busmanagementsystem.Tickets.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -8,32 +14,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-//@RestController
-//@RequestMapping(path = "api/v1/conductor")
+
+
 @Controller
 public class ConductorController {
 
     private final ConductorService conductorService;
+    private final BusService busService;
+    private final TicketService ticketService;
+    private final StudentService studentService;
 
     @Autowired
-    public ConductorController(ConductorService conductorService) {
+    public ConductorController(ConductorService conductorService, StudentService studentService,BusService busService, TicketService ticketService) {
+        this.busService = busService;
         this.conductorService = conductorService;
+        this.ticketService = ticketService;
+        this.studentService = studentService;
+
     }
 
-//    @GetMapping
-//    public List<Conductor> getConductors () {
-//        return conductorService.getConductors();
-//    }
-//
-//    @PostMapping
-//    public void registerNewConductor(@RequestBody Conductor conductor) {
-//        conductorService.addNewConductor(conductor);
-//    }
-//
-//    @DeleteMapping(path = "{conductorEmpId}")
-//    public void deleteConductor(@PathVariable("conductorEmpId") Integer conductorEmpId){
-//        conductorService.deleteConductorBySid(conductorEmpId);
-//    }
 
     private final String getCurrentAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -78,6 +77,53 @@ public class ConductorController {
 
     @GetMapping("/conductor")
     public String viewConductorHome (Model model){
+        Conductor conductor = conductorService.findConductorByEmail(getCurrentAuthenticatedUser());
+        Bus bus = busService.findBusByConductorID(conductor);
+        model.addAttribute("ticket", ticketService.findIncompleteTicketsByBus(bus));
         return "/Conductor/home";
     }
+
+    @PostMapping("/conductor/updateBusStatus")
+    public String updateBusStatus(@ModelAttribute("bus") Bus bus) {
+        Conductor conductor = conductorService.findConductorByEmail(getCurrentAuthenticatedUser());
+        Bus originalBus = busService.findBusByConductorID(conductor);
+
+        originalBus.setStatus(bus.getStatus());
+        busService.updateBus(originalBus);
+
+        return "redirect:/conductor/manageBus";
+    }
+
+    @GetMapping("/conductor/manageBus")
+    public String viewManageBusPage (Model model) {
+
+        Conductor conductor = conductorService.findConductorByEmail(getCurrentAuthenticatedUser());
+        Bus bus = busService.findBusByConductorID(conductor);
+        model.addAttribute("bus", bus);
+        model.addAttribute("passengerCount", bus.getCapacity() - bus.getAvailableSeat());
+
+        return "Conductor/bus_manage";
+
+    }
+
+    @GetMapping("/conductor/completeTicket/{id}")
+    public String checkStudentTicket(@PathVariable long id){
+
+        Ticket ticket = ticketService.findTicketByID(id);
+        ticket.setStatus("Complete");
+        ticketService.updateTicket(ticket);
+        Bus bus = ticket.getBus();
+        bus.setAvailableSeat(bus.getAvailableSeat()+1);
+        busService.updateBus(bus);
+        Student student = ticket.getStudent();
+        student.setHasTicket(false);
+        studentService.updateStudent(student);
+
+        return "redirect:/conductor";
+
+    }
+
+
+
+
 }

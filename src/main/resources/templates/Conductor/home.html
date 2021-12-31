@@ -12,6 +12,40 @@
 </head>
 <body>
 <header th:insert="Conductor/navBar.html :: conNav"></header>
-
+<div class="container border rounded mt-2 p-0">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand">Manage Passengers</a>
+    </nav>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Student ID</th>
+            <th scope="col">Serial Number</th>
+            <th scope="col">Route</th>
+            <th scope="col">Time</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ticket : ${ticket}">
+            <td th:text="${ticket.student.user.name}"></td>
+            <td th:text="${ticket.student.sid}"></td>
+            <td th:text="${ticket.id}"></td>
+            <td th:text="${ticket.bus.defaultRoute}"></td>
+            <td th:text="${ticket.time}"></td>
+            <td th:text="${ticket.date}"></td>
+            <td th:text="${ticket.status}"></td>
+            <td>
+                <span th:if="${ticket.status != 'Complete'}">
+                    <a th:href="@{/conductor/completeTicket/{id}(id=${ticket.id})}" class="btn btn-info">Complete</a>
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

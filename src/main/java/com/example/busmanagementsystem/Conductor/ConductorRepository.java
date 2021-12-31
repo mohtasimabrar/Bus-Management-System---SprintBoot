@@ -12,4 +12,7 @@ import java.util.Optional;
 public interface ConductorRepository extends JpaRepository<Conductor, Long> {
     @Query("SELECT c FROM Conductor c WHERE c.empId = ?1")
     Optional<Conductor> findConductorByEmpID (Integer empId);
+
+    @Query("SELECT c FROM Conductor c WHERE c.user.email = ?1")
+    Conductor findConductorByEmail(String email);
 }

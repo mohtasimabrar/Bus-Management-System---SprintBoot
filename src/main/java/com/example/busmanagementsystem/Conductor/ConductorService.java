@@ -28,6 +28,10 @@ public class ConductorService {
         }
     }
 
+    public Conductor findConductorByEmail(String email) {
+        return conductorRepository.findConductorByEmail(email);
+    }
+
     public void deleteConductorBySid(Integer conductorId) {
         Optional<Conductor> optionalConductor =  conductorRepository.findConductorByEmpID(conductorId);
         if (optionalConductor.isPresent()) {
