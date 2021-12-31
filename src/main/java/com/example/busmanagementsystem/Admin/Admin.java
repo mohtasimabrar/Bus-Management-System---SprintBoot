@@ -1,5 +1,6 @@
 package com.example.busmanagementsystem.Admin;
 
+import com.example.busmanagementsystem.User.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,17 +25,20 @@ public class Admin {
             generator = "admin_sequence"
     )
     private long id;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+    @Column(unique = true)
     private Integer empId;
-    private String name;
-    private String email;
+    private String designation;
 
     public Admin() {
     }
 
-    public Admin(Integer empId, String name, String email) {
+    public Admin(long id, Integer empId, String designation) {
+        this.id = id;
         this.empId = empId;
-        this.name = name;
-        this.email = email;
+        this.designation = designation;
     }
 
     @Override
@@ -42,8 +46,7 @@ public class Admin {
         return "Admin{" +
                 "id=" + id +
                 ", empId=" + empId +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
+                ", designation='" + designation + '\'' +
                 '}';
     }
 }

@@ -29,6 +29,18 @@ public class StudentService {
         }
     }
 
+    public Student updateStudent(Student student) {
+        return studentRepository.save(student);
+    }
+
+    public Student findUserByID(String email) {
+        Optional<Student> optionalUser =  studentRepository.findStudentByID(email);
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        }
+        return null;
+    }
+
     public void deleteStudentBySid(Integer studentId) {
         Optional<Student> optionalStudent =  studentRepository.findStudentBySID(studentId);
         if (optionalStudent.isPresent()) {

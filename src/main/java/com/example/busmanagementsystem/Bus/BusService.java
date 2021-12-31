@@ -2,6 +2,7 @@ package com.example.busmanagementsystem.Bus;
 
 import com.example.busmanagementsystem.Bus.Bus;
 import com.example.busmanagementsystem.Bus.BusRepository;
+import com.example.busmanagementsystem.Student.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,4 +39,18 @@ public class BusService {
             throw new IllegalStateException("Bus with ID "+busId+" does not exist!");
         }
     }
+
+    public Bus updateBus(Bus bus) {
+        return busRepository.save(bus);
+    }
+
+    public Bus findBusByID(long id) {
+        Optional<Bus> optionalBus =  busRepository.findBusByID(id);
+        if (optionalBus.isPresent()) {
+            return optionalBus.get();
+        }
+        return null;
+    }
+
+    public long busCount() {return busRepository.count();}
 }

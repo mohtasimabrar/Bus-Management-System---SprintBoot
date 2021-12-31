@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Admin | Bus Management System</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link th:src="@{/css/style.css}" rel="stylesheet" />
+
+</head>
+<body>
+<div class="my-3">
+    <div class="pb-3">
+        <img th:src="@{/image/bracu_logo.png}" class="rounded mx-auto d-block" width="85" height="75">
+    </div>
+    <div>
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a th:href = "@{/admin}" class="nav-link text-muted h5" href="#">Home </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-primary h5" href="#">Bus <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a th:href = "@{/admin/conductor}" class="nav-link text-muted h5" href="#">Conductor</a>
+            </li>
+            <li class="nav-item">
+                <a th:href = "@{/admin/administrator}" class="nav-link text-muted h5" href="#">Admin</a>
+            </li>
+            <li class="nav-item active">
+                <a  th:href="@{/logout}" class="nav-link text-muted h5" href="#">Sign Out</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+
+<div class="container border rounded mt-2 p-0">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand">List of Busses</a>
+        <form class="form-inline">
+            <a th:href = "@{/admin/addBus}" class="btn btn-success my-2 my-sm-0">Add Bus</a>
+        </form>
+    </nav>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Reg Number</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Capacity</th>
+            <th scope="col">Available Seats</th>
+            <th scope="col">Default Route</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bus : ${bus}">
+            <td th:text="${bus.id}"></td>
+            <td th:text="${bus.name}"></td>
+            <td th:text="${bus.regNumber}"></td>
+            <td th:text="${bus.driver}"></td>
+            <td th:text="${bus.capacity}"></td>
+            <td th:text="${bus.availableSeat}"></td>
+            <td th:text="${bus.defaultRoute}"></td>
+            <td th:text="${bus.status}"></td>
+            <td><a th:href="@{/admin/deleteBus/{id}(id=${bus.regNumber})}" class="btn btn-danger">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

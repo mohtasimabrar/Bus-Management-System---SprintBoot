@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Admin | Bus Management System</title>
+
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="my-3">
+  <div class="pb-3">
+    <img th:src="@{/image/bracu_logo.png}" class="rounded mx-auto d-block" width="85" height="75">
+  </div>
+  <div>
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a th:href = "@{/admin}" class="nav-link text-muted h5" href="#">Home </a>
+      </li>
+      <li class="nav-item">
+        <a th:href = "@{/admin/bus}" class="nav-link text-primary h5" href="#">Bus <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a th:href = "@{/admin/conductor}" class="nav-link text-muted h5" href="#">Conductor</a>
+      </li>
+      <li class="nav-item">
+        <a th:href = "@{/admin/administrator}" class="nav-link text-muted h5" href="#">Admin</a>
+      </li>
+      <li class="nav-item active">
+        <a  th:href="@{/logout}" class="nav-link text-muted h5" href="#">Sign Out</a>
+      </li>
+    </ul>
+  </div>
+
+</div>
+<div class="container col-3 border rounded p-3 bg-light">
+  <h2 class="text-center ">Add Bus</h2>
+
+  <form action="#" th:action="@{/admin/saveBus}" th:object="${bus}"
+        method="POST">
+    <input type="text" th:field="*{name}"
+           placeholder="Bus Name" class="form-control mb-4">
+    <input type="text" th:field="*{regNumber}"
+           placeholder="Reg Number" class="form-control mb-4">
+    <input type="text" th:field="*{defaultRoute}"
+           placeholder="Route" class="form-control mb-4">
+    <input type="number" th:field="*{capacity}"
+           placeholder="Capacity" class="form-control mb-4">
+    <input type="text" th:field="*{driver}"
+           placeholder="Driver Name" class="form-control mb-4">
+    <input type="text" th:field="*{status}"
+           placeholder="Status" class="form-control mb-4">
+    <input type="number" th:field="*{availableSeat}"
+           placeholder="Available Seats" class="form-control mb-4">
+    <div class="form-group mb-4">
+      <select class="form-control selectpicker" th:field="*{conductor}" id="condcutor">
+        <option value="">Select Conductor</option>
+        <option th:each="conductor : ${conductor}"
+                th:value="${conductor.id}"
+                th:text="${conductor.user.name}">
+        </option>
+
+      </select>
+    </div>
+
+
+<div class="text-center">
+  <button type="submit" class="btn btn-info col-3"> Save Bus</button>
+</div>
+
+  </form>
+
+  <hr>
+  <div class="text-center">
+    <a th:href = "@{/admin/bus}" > Back to Bus List</a>
+  </div>
+
+</div>
+</body>
+</html>

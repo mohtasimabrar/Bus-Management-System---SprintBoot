@@ -40,4 +40,6 @@ public class AdminService {
             throw new IllegalStateException("Admin with ID "+adminId+" does not exist!");
         }
     }
+
+    public long adminCount(){return adminRepository.count();}
 }

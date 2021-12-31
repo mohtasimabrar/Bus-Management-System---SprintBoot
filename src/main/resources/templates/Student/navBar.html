@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>BRACU Bus Service</title>
+
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+</head>
+<body>
+<!-- Navbar-->
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="nav">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+    <div class="d-flex align-items-left">
+      <a class="navbar-brand me-2">
+        <img th:src="@{/image/bracu_logo.png}" class="rounded mx-auto d-block" width="72" height="65">
+      </a>
+
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto pt-3 ">
+        <li class="nav-item mx-2">
+          <a th:href = "@{/}" class="nav-link h5" href="#">Dashboard</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a th:href="@{/student/buyTicket}" class="nav-link h5" >Buy Ticket</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a th:href="@{/student/profile}" class="nav-link h5" >My Tickets</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+    </div>
+
+    <div class="d-flex align-items-right">
+      <p class="px-3 pt-3 me-2" >[(${student.user.name})]</p>
+
+      <form form-method="post" th:action="@{/logout}" class="pt-2">
+        <a th:href = "@{/student/wallet}" type="button" class="btn btn-info mr-2">
+          Wallet : <span class="h6"> [(${student.balance})] BDT</span>
+        </a>
+        <button  class="btn btn-primary" type="submit">
+          Sign Out
+        </button>
+      </form>
+    </div>
+
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+</body>
+</html>

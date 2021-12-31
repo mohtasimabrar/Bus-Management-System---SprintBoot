@@ -2,10 +2,14 @@ package com.example.busmanagementsystem.Student;
 
 import javax.persistence.*;
 
+import com.example.busmanagementsystem.Tickets.Ticket;
+import com.example.busmanagementsystem.User.User;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,22 +30,31 @@ public class Student {
     )
     private long id;
     private Integer sid;
-    private String name;
-    private  String address;
-    private  String dept;
+    private String address;
+    private String dept;
     private String defaultRoute;
     private Integer balance;
+    private boolean hasTicket;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<Ticket> tickets = new HashSet<>();
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Student() {
+        this.balance = 0;
+        this.hasTicket = false;
     }
 
-    public Student(long l,Integer sid, String name, String address, String dept, String defaultRoute, Integer balance) {
+    public Student(Integer sid, String address, String dept, String defaultRoute) {
         this.sid = sid;
-        this.name = name;
         this.address = address;
         this.dept = dept;
         this.defaultRoute = defaultRoute;
-        this.balance = balance;
+        this.balance = 0;
+        this.hasTicket = false;
     }
 
     @Override
@@ -49,11 +62,11 @@ public class Student {
         return "Student{" +
                 "id=" + id +
                 ", sid=" + sid +
-                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", dept='" + dept + '\'' +
                 ", defaultRoute='" + defaultRoute + '\'' +
                 ", balance=" + balance +
+                ", hasTicket=" + hasTicket +
                 '}';
     }
 }

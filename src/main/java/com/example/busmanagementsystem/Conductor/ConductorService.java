@@ -1,7 +1,5 @@
 package com.example.busmanagementsystem.Conductor;
 
-import com.example.busmanagementsystem.Conductor.Conductor;
-import com.example.busmanagementsystem.Conductor.ConductorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,4 +36,6 @@ public class ConductorService {
             throw new IllegalStateException("Conductor with ID "+conductorId+" does not exist!");
         }
     }
+
+    public long conductorCount(){return conductorRepository.count();}
 }

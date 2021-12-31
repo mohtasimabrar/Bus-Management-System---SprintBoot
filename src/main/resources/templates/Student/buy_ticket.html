@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>BRACU Bus Service</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="script" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+    <link rel="script" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</head>
+<body>
+<header th:insert="Student/navBar.html :: nav"></header>
+<!-- Page content goes here -->
+<div class="container col-3 border rounded p-3 bg-light mt-5">
+    <h2 class="text-center ">Buy Ticket</h2>
+
+    <form action="#" th:action="@{/student/confirmTicket}" th:object="${ticket}"
+          method="POST">
+
+        <div class="form-group mb-4">
+            <select class="form-control selectpicker" th:field="*{time}" id="time">
+                <option value="">Select Time</option>
+                <option
+                        value="7 AM"
+                        text="7 AM">7 AM
+                </option>
+                <option
+                        value="11 AM"
+                        text="11 AM">11 AM
+                </option>
+                <option
+                        value="2 PM"
+                        text="2 PM">2 PM
+                </option>
+                <option
+                        value="5 PM"
+                        text="5 PM">5 PM
+                </option>
+            </select>
+        </div>
+        <div class="form-group mb-4">
+            <select class="form-control selectpicker" th:field="*{bus}" id="bus">
+                <option value="">Select Route</option>
+                <option th:each="availableBus : ${availableBus}"
+                        th:value="${availableBus.id}"
+                        th:text="${availableBus.defaultRoute}">
+                </option>
+
+            </select>
+        </div>
+        <div class="form-group mb-4">
+            <select class="form-control selectpicker" th:field="*{price}" id="price">
+                <option
+                        value="50"
+                        text="50 BDT">50 BDT
+                </option>
+            </select>
+        </div>
+        <div class="form-group mb-4">
+            <select class="form-control selectpicker" th:field="*{isPaid}" id="isPaid">
+                <option value="">Select Payment Method</option>
+                <option
+                        value="1"
+                        text="Wallet Pay">Wallet Pay
+                </option>
+                <option
+                        value="0"
+                        text="Cash">Cash
+                </option>
+            </select>
+        </div>
+        <div class="form-group mb-4" hidden>
+            <select class="form-control selectpicker" th:field="*{student}" id="student">
+                <option
+                        th:value="${student.id}"
+                        th:text="${student.id}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group mb-4" hidden>
+            <select class="form-control selectpicker" th:field="*{status}" id="status">
+                <option
+                        value="Pending"
+                        text="Pending">
+                </option>
+            </select>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-info col-4">Confirm Ticket</button>
+        </div>
+
+    </form>
+    <div class="text-center pt-2">
+        <p>Only tickets for today can be purchased.</p>
+    </div>
+
+    <hr>
+    <div class="text-center">
+        <a th:href = "@{/}" > Back to Home</a>
+    </div>
+</div>
+</body>
+</html>

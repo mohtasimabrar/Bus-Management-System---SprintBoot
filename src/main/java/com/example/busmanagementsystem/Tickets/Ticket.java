@@ -1,5 +1,7 @@
 package com.example.busmanagementsystem.Tickets;
 
+import com.example.busmanagementsystem.Bus.Bus;
+import com.example.busmanagementsystem.Student.Student;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,31 +17,49 @@ public class Ticket {
 
     @Id
     @SequenceGenerator(
-            name = "student_sequence",
-            sequenceName = "student_sequence",
+            name = "ticket_sequence",
+            sequenceName = "ticket_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "student_sequence"
+            generator = "ticket_sequence"
     )
     private long id;
-    private String serialNumber;
     private  String time;
     private  String date;
-    private String route;
     private Integer price;
-    private boolean isPaid;
+    private Integer isPaid;
+    private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "bus_id", referencedColumnName = "id")
+    private Bus bus;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    private Student student;
 
     public Ticket() {
     }
 
-    public Ticket(String serialNumber, String time, String date, String route, Integer price, boolean isPaid) {
-        this.serialNumber = serialNumber;
+    public Ticket(String time, String date, Integer price, Integer isPaid, String status) {
         this.time = time;
         this.date = date;
-        this.route = route;
         this.price = price;
         this.isPaid = isPaid;
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", time='" + time + '\'' +
+                ", date='" + date + '\'' +
+                ", price=" + price +
+                ", isPaid=" + isPaid +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

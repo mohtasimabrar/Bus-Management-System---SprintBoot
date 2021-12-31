@@ -1,7 +1,6 @@
 package com.example.busmanagementsystem.Tickets;
 
-import com.example.busmanagementsystem.Tickets.Ticket;
-import com.example.busmanagementsystem.Tickets.TicketRepository;
+import com.example.busmanagementsystem.Student.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,17 +20,35 @@ public class TicketService {
         return ticketRepository.findAll();
     }
 
-    public void addNewTicket(Ticket ticket) {
-        Optional<Ticket> optionalTicket =  ticketRepository.findTicketBySerial(ticket.getSerialNumber());
+    public List<Ticket> findTicketByStudent(Student student) {
+        List<Ticket> tickets =  ticketRepository.findTicketByStudent(student);
+        return tickets;
+    }
+
+    public Ticket findTicketByID(long id) {
+        Optional<Ticket> optionalTicket =  ticketRepository.findTicketByID(id);
         if (optionalTicket.isPresent()) {
-            throw new IllegalStateException("Account Already Exists. Please Try Signing In.");
+            return optionalTicket.get();
+        } else {
+            throw new IllegalStateException("Ticket does not exist.");
+        }
+    }
+
+
+
+    public void addNewTicket(Ticket ticket) {
+        Optional<Ticket> optionalTicket =  ticketRepository.findTicketByID(ticket.getId());
+        if (optionalTicket.isPresent()) {
+            throw new IllegalStateException("Ticket Already Exists. Please Try A New One.");
         } else {
             ticketRepository.save(ticket);
         }
     }
 
-    public void deleteTicketBySerial(String ticketId) {
-        Optional<Ticket> optionalTicket =  ticketRepository.findTicketBySerial(ticketId);
+
+
+    public void deleteTicketByID(long ticketId) {
+        Optional<Ticket> optionalTicket =  ticketRepository.findTicketByID(ticketId);
         if (optionalTicket.isPresent()) {
             ticketRepository.deleteById(optionalTicket.get().getId());
         } else {
