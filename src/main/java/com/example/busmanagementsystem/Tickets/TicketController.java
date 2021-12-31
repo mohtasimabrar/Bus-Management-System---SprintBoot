@@ -65,9 +65,9 @@ public class TicketController {
     @PostMapping("/student/confirmTicket")
     public String confirmPurchase(@ModelAttribute("bus") Ticket ticket){
         Student student = studentService.findUserByID(getCurrentAuthenticatedUser());
-//        if (student.isHasTicket()){
-//            throw new IllegalStateException("User already has a Ticket. Complete the ride first");
-//        }
+        if (student.isHasTicket()){
+            throw new IllegalStateException("User already has a Ticket. Complete the ride first");
+        }
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDateTime now = LocalDateTime.now();

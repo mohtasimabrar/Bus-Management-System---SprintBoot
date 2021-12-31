@@ -36,72 +36,43 @@
             </ul>
         </div>
     </div>
-    <div class="col d-flex justify-content-center card-deck pt-5">
-    <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-        <div class="card-header"><h4>Admin Count</h4></div>
-        <div class="card-body">
-            <h5 th:text="${adminCount}" class="card-title"></h5>
+
+    <div class="container mt-2 pb-4 p-0">
+
+        <div class="text-left">
+            <h3 class="pt-4">System Status</h3>
         </div>
-    </div>
-    <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-        <div class="card-header"><h4>Conductor Count</h4></div>
-        <div class="card-body">
-            <h5 th:text="${conductorCount}" class="card-title"></h5>
-        </div>
-    </div>
-    <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-        <div class="card-header"><h4>Bus Count</h4></div>
-        <div class="card-body">
-            <h5 th:text="${busCount}" class="card-title"></h5>
-        </div>
-    </div>
-    </div>
-    <div class="text-center">
-        <h3 class="pt-4">Tickets Sold</h3>
-    </div>
-    <div class="col d-flex justify-content-center card-deck pt-3">
-        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-            <div class="card-header"><h4>Today</h4></div>
-            <div class="card-body">
-                <h5 th:text="${adminCount}" class="card-title"></h5>
+        <div class="d-flex justify-content-center card-deck pt-3" >
+            <div class="card">
+                <div class="card-header">
+                    Admin Count
+                </div>
+                <div class="card-body">
+                    <h1>[(${adminCount})]</h1>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Conductor Count
+                </div>
+                <div class="card-body">
+                    <h1>[(${conductorCount})]</h1>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Bus Count
+                </div>
+                <div class="card-body">
+                    <h1>[(${busCount})]</h1>
+                </div>
             </div>
         </div>
-        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-            <div class="card-header"><h4>This Week</h4></div>
-            <div class="card-body">
-                <h5 th:text="${conductorCount}" class="card-title"></h5>
-            </div>
-        </div>
-        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-            <div class="card-header"><h4>This Month</h4></div>
-            <div class="card-body">
-                <h5 th:text="${busCount}" class="card-title"></h5>
-            </div>
-        </div>
-    </div>
-    <div class="text-center">
-        <h3 class="pt-4">Revenue</h3>
+
     </div>
 
-    <div class="col d-flex justify-content-center card-deck pt-3">
-        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-            <div class="card-header"><h4>Today</h4></div>
-            <div class="card-body">
-                <h5 th:text="${adminCount}" class="card-title"></h5>
-            </div>
-        </div>
-        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-            <div class="card-header"><h4>This Week</h4></div>
-            <div class="card-body">
-                <h5 th:text="${conductorCount}" class="card-title"></h5>
-            </div>
-        </div>
-        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-            <div class="card-header"><h4>This Month</h4></div>
-            <div class="card-body">
-                <h5 th:text="${busCount}" class="card-title"></h5>
-            </div>
-        </div>
-    </div>
+
     </body>
 </html>
